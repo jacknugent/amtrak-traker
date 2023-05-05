@@ -96,6 +96,7 @@ export default function Trains() {
                 filteredStations.slice(0, 3).map((s) => (
                   <div key={s.code} className="mb-1">
                     <Button
+                      className="text-start"
                       variant="light"
                       onClick={() => selectStation(s.code)}
                     >
