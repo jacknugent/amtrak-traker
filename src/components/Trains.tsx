@@ -70,7 +70,7 @@ export default function Trains() {
   return (
     <Container>
       <div className="d-flex justify-content-between">
-        <h1 className="mt-2">Amtrak Traker</h1>
+        <h1 className="mt-2">Amtraker</h1>
         <div className="mt-2 me-2">
           <ConditionalSpinner when={isLoading || isTrainsLoading} />
         </div>
