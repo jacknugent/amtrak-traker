@@ -1,4 +1,4 @@
-import { addDelayToDate } from "./helpers";
+import { addDelayToDate, flatten } from "./helpers";
 
 describe("addDelayToDate", () => {
   it("should return the same date when no delay is present", () => {
@@ -48,5 +48,31 @@ describe("addDelayToDate", () => {
     const delayString = "2 hrs 30 mins late";
     const result = addDelayToDate(delayString, date);
     expect(result).toEqual(date);
+  });
+});
+
+describe("flatten", () => {
+  it("flattens a single nested array", () => {
+    const nestedArray = [[1, 2, 3]];
+    const flattened = flatten(nestedArray);
+    expect(flattened).toEqual([1, 2, 3]);
+  });
+
+  it("flattens multiple nested arrays", () => {
+    const nestedArrays = [[1, 2], [3, 4, 5], [6]];
+    const flattened = flatten(nestedArrays);
+    expect(flattened).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+
+  it("returns an empty array when given an empty array", () => {
+    const emptyArray: any[][] = [];
+    const flattened = flatten(emptyArray);
+    expect(flattened).toEqual([]);
+  });
+
+  it("flattens arrays with mixed types", () => {
+    const nestedArrays = [[1, "two"], ["three", 4], [5]];
+    const flattened = flatten(nestedArrays);
+    expect(flattened).toEqual([1, "two", "three", 4, 5]);
   });
 });

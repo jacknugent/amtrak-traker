@@ -5,10 +5,7 @@ import { Train } from "amtrak/dist/types";
 import TrainTable from "./TrainTable";
 import dayjs from "dayjs";
 import ConditionalSpinner from "./LoadingSpinner";
-import {
-  filterAndSortTrainsByScheduledTimeRange,
-  flatten,
-} from "../utils/helpers";
+import { filterSortTrainsByHour, flatten } from "../utils/helpers";
 
 export default function Trains() {
   const { data: stations, isLoading } = useStations();
@@ -53,14 +50,8 @@ export default function Trains() {
     [allTrains]
   );
 
-  const departureTrains = filterAndSortTrainsByScheduledTimeRange(
-    stationTrains,
-    "Departure"
-  );
-  const arrivalTrains = filterAndSortTrainsByScheduledTimeRange(
-    stationTrains,
-    "Arrival"
-  );
+  const departureTrains = filterSortTrainsByHour(stationTrains, "Departure");
+  const arrivalTrains = filterSortTrainsByHour(stationTrains, "Arrival");
 
   const selectStation = (station: string) => {
     setSearchValue("");
@@ -122,7 +113,7 @@ export default function Trains() {
             {!isTrainsLoading &&
               departureTrains.length === 0 &&
               arrivalTrains.length === 0 && (
-                <p>No trains listed in the next three hours.</p>
+                <p>No upcoming trains scheduled.</p>
               )}
             {!isTrainsLoading && (
               <div className="mb-3">
