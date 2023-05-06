@@ -136,10 +136,11 @@ export default function Trains() {
         This website is experimental and has no relation to Amtrak.
       </p>
       <p>
-        View the source code{" "}
-        <a href="https://github.com/jacknugent/amtrak-traker">here</a>. Data
-        fetched using the{" "}
-        <a href="https://github.com/piemadd/amtrak">amtrak npm package</a>.
+        Suggestions? Share on{" "}
+        <a href="https://github.com/jacknugent/amtrak-traker/issues/new">
+          Github
+        </a>
+        .
       </p>
     </Container>
   );
