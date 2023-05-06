@@ -70,7 +70,10 @@ export default function Trains() {
   return (
     <Container>
       <div className="d-flex justify-content-between">
-        <h1 className="mt-2">Amtraker</h1>
+        <div>
+          <h1 className="mt-2">Amtraker</h1>
+          <p>For viewing live Amtrak train information by station.</p>
+        </div>
         <div className="mt-2 me-2">
           <ConditionalSpinner when={isLoading || isTrainsLoading} />
         </div>
@@ -111,9 +114,14 @@ export default function Trains() {
       {station && (
         <Card className="mb-2">
           <Card.Body>
-            <Card.Title className="mb-4 d-flex justify-content-between">
+            <Card.Title className="mb-1 d-flex justify-content-between">
               <strong>{station?.name} Station</strong>
             </Card.Title>
+            {!isTrainsLoading && (
+              <div className="mb-3">
+                Last Updated: {dayjs(dataUpdatedAt).format("h:mma")}
+              </div>
+            )}
             <TrainTable title="Departures" stationTrains={departureTrains} />
             <TrainTable title="Arrivals" stationTrains={arrivalTrains} />
             {!isTrainsLoading &&
@@ -121,15 +129,19 @@ export default function Trains() {
               arrivalTrains.length === 0 && (
                 <p>No trains listed in the next three hours.</p>
               )}
-            {!isTrainsLoading && (
-              <div>Last Updated: {dayjs(dataUpdatedAt).format("h:mma")}</div>
-            )}
           </Card.Body>
         </Card>
       )}
       <p className="mt-3">
-        This website is experimental and not associated with Amtrak. Use at your
-        own risk.
+        This website is experimental and has no relation to Amtrak. Amtrak and
+        the Amtrak Logo are trademarks of The National Railroad Passenger
+        Corporation (NRPC). Use at your own risk.
+      </p>
+      <p>
+        View the source code{" "}
+        <a href="https://github.com/jacknugent/amtrak-traker">here</a>. Data is
+        fetched using the{" "}
+        <a href="https://github.com/piemadd/amtrak">amtrak npm package</a>.
       </p>
     </Container>
   );

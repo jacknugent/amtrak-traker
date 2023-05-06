@@ -2,6 +2,7 @@
   "name": "amtrak-traker",
   "private": true,
   "version": "1.0.0",
+  "license": "ISC",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
