@@ -69,7 +69,7 @@ export default function Trains() {
       <div className="d-flex justify-content-between">
         <div>
           <h1 className="mt-2">Amtraker</h1>
-          <p className="mb-1">To view live Amtrak train information</p>
+          <p className="mb-1">To view live Amtrak station information</p>
         </div>
         <div className="mt-2 me-2">
           <ConditionalSpinner when={isLoading || isTrainsLoading} />
