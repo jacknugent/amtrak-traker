@@ -113,15 +113,10 @@ export default function Trains() {
       </Card>
       {station && (
         <Card className="mb-2">
-          <Card.Body>
-            <Card.Title className="mb-1 d-flex justify-content-between">
+          <Card.Body className="pb-0">
+            <Card.Title className="mb-3 d-flex justify-content-between">
               <strong>{station?.name} Station</strong>
             </Card.Title>
-            {!isTrainsLoading && (
-              <div className="mb-3">
-                Last Updated: {dayjs(dataUpdatedAt).format("h:mma")}
-              </div>
-            )}
             <TrainTable title="Departures" stationTrains={departureTrains} />
             <TrainTable title="Arrivals" stationTrains={arrivalTrains} />
             {!isTrainsLoading &&
@@ -129,12 +124,16 @@ export default function Trains() {
               arrivalTrains.length === 0 && (
                 <p>No trains listed in the next three hours.</p>
               )}
+            {!isTrainsLoading && (
+              <div className="mb-3">
+                Last Updated: {dayjs(dataUpdatedAt).format("h:mma")}
+              </div>
+            )}
           </Card.Body>
         </Card>
       )}
       <p className="mt-3">
-        This website is experimental and has no relation to Amtrak. Use at your
-        own risk.
+        This website is experimental and has no relation to Amtrak.
       </p>
       <p>
         View the source code{" "}
