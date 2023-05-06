@@ -95,32 +95,37 @@ export const getDisplayStatus = (
   return comment;
 };
 
-const ONE_HOUR = 60 * 60 * 1000;
-const MAX_TRAINS_TO_SHOW = 11;
-
 /**
  * Filters and sorts an array of trains based on their scheduled departure or arrival time.
  *
  * @param stationTrains The array of trains to filter and sort.
  * @param type Indicates whether to filter based on scheduled departure or arrival time.
+ * @param lookbackDuration Time duration to look back from the current time, in hours.
+ * @param lookaheadDuration Time duration to look ahead from the current time, in hours.
+ * @param maxTrainsToShow Maximum number of trains to show in the output array.
  * @returns The filtered and sorted array of trains.
  */
-export function filterSortTrainsByHour(
+export function filterSortTrainsByTimeRange(
   stationTrains: Array<Train & { selectedStation: Station }>,
-  type: "Departure" | "Arrival"
+  type: "Departure" | "Arrival",
+  lookbackDuration: number,
+  lookaheadDuration: number,
+  maxTrainsToShow: number
 ): Array<Train & { selectedStation: Station }> {
   const timeKey = type === "Departure" ? "schDep" : "schArr";
+  const now = new Date();
+  const startTime = new Date(now.getTime() - lookbackDuration * 3600000);
+  const endTime = new Date(now.getTime() + lookaheadDuration * 3600000);
 
   return stationTrains
-    .filter((t) => {
-      const now = new Date();
-      const oneHourAgo = new Date(now.getTime() - ONE_HOUR);
-      return new Date(t.selectedStation[timeKey]) > oneHourAgo;
+    .filter(({ selectedStation }) => {
+      const scheduledTime = new Date(selectedStation[timeKey]);
+      return scheduledTime > startTime && scheduledTime < endTime;
     })
     .sort(
       (a, b) =>
         new Date(a.selectedStation[timeKey]).getTime() -
         new Date(b.selectedStation[timeKey]).getTime()
     )
-    .slice(0, MAX_TRAINS_TO_SHOW);
+    .slice(0, maxTrainsToShow);
 }

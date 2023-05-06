@@ -5,14 +5,15 @@ import { Train } from "amtrak/dist/types";
 import TrainTable from "./TrainTable";
 import dayjs from "dayjs";
 import ConditionalSpinner from "./LoadingSpinner";
-import { filterSortTrainsByHour, flatten } from "../utils/helpers";
+import { filterSortTrainsByTimeRange, flatten } from "../utils/helpers";
 
 export default function Trains() {
-  const { data: stations, isLoading } = useStations();
+  const { data: stations, isLoading, isError } = useStations();
   const {
     data: trains,
     dataUpdatedAt,
     isLoading: isTrainsLoading,
+    isError: isTrainsError,
   } = useTrains();
   const [searchValue, setSearchValue] = useState("");
   const [selectedStation, setSelectedStation] = useSessionStorage(
@@ -50,8 +51,13 @@ export default function Trains() {
     [allTrains]
   );
 
-  const departureTrains = filterSortTrainsByHour(stationTrains, "Departure");
-  const arrivalTrains = filterSortTrainsByHour(stationTrains, "Arrival");
+  const departureTrains = useMemo(() => {
+    return filterSortTrainsByTimeRange(stationTrains, "Departure", 1, 3, 11);
+  }, [stationTrains]);
+
+  const arrivalTrains = useMemo(() => {
+    return filterSortTrainsByTimeRange(stationTrains, "Arrival", 1, 3, 11);
+  }, [stationTrains]);
 
   const selectStation = (station: string) => {
     setSearchValue("");
@@ -102,6 +108,9 @@ export default function Trains() {
           </Form>
         </Card.Body>
       </Card>
+      {(isError || isTrainsError) && (
+        <div>An error occured while trying to fetch Amtrak data.</div>
+      )}
       {station && (
         <Card className="mb-2">
           <Card.Body className="pb-0">
@@ -127,7 +136,7 @@ export default function Trains() {
         This website is experimental and has no relation to Amtrak.
       </p>
       <p>
-        Suggestions? Share on{" "}
+        Suggestions? Share them on{" "}
         <a href="https://github.com/jacknugent/amtrak-traker/issues/new">
           Github
         </a>
