@@ -1,2 +1,8 @@
 # amtrak-traker
-App that retrieves and displays Amtrak live train information.
+
+App that retrieves and displays Amtrak live train information. Live URL [here](https://main--brilliant-hamster-1aabb5.netlify.app/).
+
+# Disclaimer
+
+This website ihas no relation to Amtrak. Amtrak and the Amtrak Logo are trademarks of The National Railroad
+Passenger Corporation (NRPC).

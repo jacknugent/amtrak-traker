@@ -72,7 +72,7 @@ export default function Trains() {
       <div className="d-flex justify-content-between">
         <div>
           <h1 className="mt-2">Amtraker</h1>
-          <p>For viewing live Amtrak train information by station.</p>
+          <p className="mb-1">To view live Amtrak train information</p>
         </div>
         <div className="mt-2 me-2">
           <ConditionalSpinner when={isLoading || isTrainsLoading} />
@@ -133,13 +133,12 @@ export default function Trains() {
         </Card>
       )}
       <p className="mt-3">
-        This website is experimental and has no relation to Amtrak. Amtrak and
-        the Amtrak Logo are trademarks of The National Railroad Passenger
-        Corporation (NRPC). Use at your own risk.
+        This website is experimental and has no relation to Amtrak. Use at your
+        own risk.
       </p>
       <p>
         View the source code{" "}
-        <a href="https://github.com/jacknugent/amtrak-traker">here</a>. Data is
+        <a href="https://github.com/jacknugent/amtrak-traker">here</a>. Data
         fetched using the{" "}
         <a href="https://github.com/piemadd/amtrak">amtrak npm package</a>.
       </p>
