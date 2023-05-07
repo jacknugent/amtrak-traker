@@ -7,6 +7,7 @@ interface Train {
   trainNum: number;
   routeName: string;
   destName: string;
+  origName: string;
   selectedStation: {
     dep: string;
     schDep: string;
@@ -26,6 +27,8 @@ const TrainTable: React.FC<TrainTableProps> = ({ title, stationTrains }) => {
   const isDepartures = title === "Departures";
   const timeKey = isDepartures ? "schDep" : "schArr";
   const commentKey = isDepartures ? "depCmnt" : "arrCmnt";
+  const toFrom = isDepartures ? "To" : "From";
+  const toFromKey = isDepartures ? "destName" : "origName";
 
   return (
     <>
@@ -38,7 +41,7 @@ const TrainTable: React.FC<TrainTableProps> = ({ title, stationTrains }) => {
                 <th>Time</th>
                 <th>No.</th>
                 <th className="d-none d-sm-table-cell">Train</th>
-                <th>To</th>
+                <th>{toFrom}</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -50,7 +53,7 @@ const TrainTable: React.FC<TrainTableProps> = ({ title, stationTrains }) => {
                   </td>
                   <td>{t.trainNum}</td>
                   <td className="d-none d-sm-table-cell">{t.routeName}</td>
-                  <td>{t.destName}</td>
+                  <td>{t[toFromKey]}</td>
                   <td>
                     {getDisplayStatus(
                       t.selectedStation.status,
